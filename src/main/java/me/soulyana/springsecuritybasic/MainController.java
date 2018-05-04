@@ -1,13 +1,11 @@
 package me.soulyana.springsecuritybasic;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import javax.validation.Valid;
@@ -26,9 +24,6 @@ public class MainController {
     @RequestMapping("/")
     public String showIndex(Model model) {
         model.addAttribute("events", events.findAll());
-        model.addAttribute("registeredusers", users.count());
-        model.addAttribute("privateEvent", events.countAllByPrivateEvent(true));
-        model.addAttribute("publicEvent", events.countAllByPrivateEvent(false));
         return "index";
     }
 
@@ -62,6 +57,35 @@ public class MainController {
             users.save(user);
         }
         return "redirect:/";
+    }
+
+    @GetMapping("/viewevents")
+    public String viewEvents(Authentication auth, Model model) {
+        if(auth==null) {
+            //User is not authenticated
+            model.addAttribute("events", events.findAllByPrivateEvent(false));
+            model.addAttribute("title", "Public Events");
+        } else {
+            model.addAttribute("events", events.findAll());
+            model.addAttribute("title", "All Events");
+        }
+        return "listevents";
+    }
+
+    @GetMapping("/showprivateevents")
+    public String showPrivateEvents(Model model)
+    {
+        model.addAttribute("events",events.findAllByPrivateEvent(true));
+        model.addAttribute("title", "Private Events");
+        return "listrooms";
+    }
+
+    @GetMapping("/changeeventstatus/{id}")
+    public String changeEventStatus(@PathVariable("id") long id) {
+        Event thisEvent = events.findById(id).get();
+        thisEvent.setPrivateEvent(!thisEvent.isPrivateEvent());
+        events.save(thisEvent);
+        return "redirect:/viewevents";
     }
 
     @PostConstruct

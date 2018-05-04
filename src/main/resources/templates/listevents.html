@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/springsecurity4">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div><h3 th:text="${title}"></h3></div>
+    <table class="table">
+        <thead>Name</thead>
+        <thead>Start Date</thead>
+        <thead>End Date</thead>
+        <tbody>
+        <tr th:each="anEvent:${events}">
+            <td th:text="${anEvent.name}==''?'No name':${anEvent.name}"></td>
+            <td th:text="${anEvent.startDate}==''?'No start date':${anEvent.startDate}"></td>
+            <td th:text="${anEvent.endDate}==''?'No end date':${anEvent.endDate}"></td>
+            <td th:text="${anEvent.privateEvent}==true?'Private Event':'Public Event'" th:classappend="${anEvent.privateEvent==true}?'red':''"></td>
+            <td sec:authorize="hasAuthority('SOULYANA')"><a th:href="@{/changeeventstatus/{id}(id=${anEvent.id})}" th:text="${anEvent.privateEvent}==true?'Open Event':'Close Event'"></a></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

@@ -39,7 +39,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     }
 
     private String[] everyone = {"/","/register","/viewevents"};
-    private String[] administrators = {"/addevent","/saveevent","/**","/h2/**","/viewevents"};
+    private String[] administrators = {"/addevent","/**","/h2/**","/viewevents", "/changeeventstatus"};
     private String[] soul = administrators;
 
     @Override
