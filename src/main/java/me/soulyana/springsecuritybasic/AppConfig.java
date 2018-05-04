@@ -38,7 +38,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         return new SSUDS(users);
     }
 
-    private String[] everyone = {"/","/viewevents","/signup"};
+    private String[] everyone = {"/","/register","/viewevents"};
     private String[] administrators = {"/addevent","/saveevent","/**","/h2/**","/viewevents"};
     private String[] soul = administrators;
 
@@ -65,7 +65,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         auth.inMemoryAuthentication().withUser("Soulyana")
                 .password(passwordEncoder().encode("Ethio619")).authorities("SOULYANA")
                 .and()
-                .withUser("adminuser").password("admin").authorities("ADMIN")
+                .withUser("adminuser").password(passwordEncoder().encode("admin")).authorities("ADMIN")
                 .and()
                 .passwordEncoder(passwordEncoder());;
 

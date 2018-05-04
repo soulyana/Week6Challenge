@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,6 +44,22 @@ public class MainController {
             return "eventform";
         } else {
             events.save(event);
+        }
+        return "redirect:/";
+    }
+
+    @GetMapping("/register")
+    public String registerNewUser(Model model) {
+        model.addAttribute("aUser", new AppUser());
+        return "registrationform";
+    }
+
+    @PostMapping("/register")
+    public String saveRegisteredUser(@Valid @ModelAttribute("aUser") AppUser user, BindingResult result) {
+        if(result.hasErrors()) {
+            return "registrationform";
+        } else {
+            users.save(user);
         }
         return "redirect:/";
     }
