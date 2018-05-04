@@ -2,12 +2,44 @@
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>Homepage</title>
 </head>
 <body>
-<h1>Welcome to Spring Security!</h1>
+<h1>Welcome to Eventbryte!</h1>
 <h1 sec:authorize="isAnonymous()">You can go to <a href="http://localhost:8080/login">http://localhost:8080/login</a> to log in!</h1>
 <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#authentication.name}]], you are logged in!</h1>
+<!--List of Public Events-->
+<div class="section" sec:authorize="isAnonymous()">
+<div><h3>Public events</h3></div>
+<table class="table">
+    <thead>Name</thead>
+    <thead>Start Date</thead>
+    <thead>End Date</thead>
+    <tbody>
+    <tr th:each="anEvent:${events}">
+        <td th:if="${anEvent.privateEvent==false}" th:text="${anEvent.name}==''?'No name':${anEvent.name}"></td>
+        <td th:if="${anEvent.privateEvent==false}" th:text="${anEvent.startDate}==''?'No start date':${anEvent.startDate}"></td>
+        <td th:if="${anEvent.privateEvent==false}" th:text="${anEvent.endDate}==''?'No end date':${anEvent.endDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
 
+<!--List of Private Events-->
+<div class="section" sec:authorize="isAuthenticated()">
+<div><h3>Private events</h3></div>
+<table class="table">
+    <thead>Name</thead>
+    <thead>Start Date</thead>
+    <thead>End Date</thead>
+    <tbody>
+    <tr th:each="anEvent:${events}">
+        <td th:text="${anEvent.name}==''?'No name':${anEvent.name}"></td>
+        <td th:text="${anEvent.startDate}==''?'No start date':${anEvent.startDate}"></td>
+        <td th:text="${anEvent.endDate}==''?'No end date':${anEvent.endDate}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
 </body>
 </html>
