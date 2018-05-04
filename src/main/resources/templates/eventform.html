@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/">
-<head>
+<head th:replace="/fragments/index::htmlhead">
     <meta charset="UTF-8"/>
     <title>Event Form</title>
 </head>
 <body>
-
+<!--Navbar-->
+<nav th:replace="/fragments/base::shownav"></nav>
+<!--End of navbar-->
 <p>Event Form</p>
 <form th:action="@{/addevent}" method="post" th:object="${anEvent}">
     <input type="hidden" th:field="*{id}" />
@@ -43,4 +45,5 @@
 </form>
 </div>
 </body>
+<div th:replace="/fragments/index::scripts"></div>
 </html>

@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="www.thymeleaf.org/extras/springsecurity4">
-<head>
+<head th:replace="/fragments/index::htmlhead">
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
+<!--Navbar-->
+<nav th:replace="/fragments/base::shownav"></nav>
+<!--End of navbar-->
 <div class="container">
     <div><h3 th:text="${title}"></h3></div>
     <table class="table">
@@ -23,4 +26,5 @@
     </table>
 </div>
 </body>
+<div th:replace="/fragments/index::scripts"></div>
 </html>

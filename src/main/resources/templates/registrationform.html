@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org">
-<head>
+<head th:replace="/fragments/index::htmlhead">
     <meta charset="UTF-8"/>
     <title>Registration Form</title>
 </head>
 <body>
+<!--Navbar-->
+<nav th:replace="/fragments/base::shownav"></nav>
+<!--End of navbar-->
 <div class="container">
     <div class="col-8">
         <form th:action="@{/register}" th:method="post" th:object="${aUser}">
@@ -23,4 +26,5 @@
     </div>
 </div>
 </body>
+<div th:replace="/fragments/index::scripts"></div>
 </html>

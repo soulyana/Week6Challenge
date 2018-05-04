@@ -1,10 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org.thymeleaf-extras-springsecurity4">
-<head>
+<head th:replace="/fragments/index::htmlhead">
     <meta charset="UTF-8"/>
     <title>Homepage</title>
 </head>
 <body>
+
+<!--Navbar-->
+<nav th:replace="/fragments/base::shownav"></nav>
+<!--End of navbar-->
+
 <h1>Welcome to Eventbryte!</h1>
 <h1 sec:authorize="isAnonymous()">You can go to <a href="http://localhost:8080/login">http://localhost:8080/login</a> to log in!</h1>
 <h1 sec:authorize="isAuthenticated()" th:inline="text">Hello [[${#authentication.name}]], you are logged in!</h1>
@@ -42,4 +47,5 @@
 </table>
 </div>
 </body>
+<div th:replace="/fragments/index::scripts"></div>
 </html>

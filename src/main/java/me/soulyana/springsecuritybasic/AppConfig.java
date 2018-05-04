@@ -38,7 +38,7 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
         return new SSUDS(users);
     }
 
-    private String[] everyone = {"/","/register","/viewevents"};
+    private String[] everyone = {"/", "/assets/**","/register","/viewevents"};
     private String[] administrators = {"/addevent","/**","/h2/**","/viewevents", "/changeeventstatus"};
     private String[] soul = administrators;
 
