@@ -76,7 +76,7 @@ public class MainController {
     {
         model.addAttribute("events",events.findAllByPrivateEvent(true));
         model.addAttribute("title", "Private Events");
-        return "listrooms";
+        return "listevents";
     }
 
     @GetMapping("/changeeventstatus/{id}")
