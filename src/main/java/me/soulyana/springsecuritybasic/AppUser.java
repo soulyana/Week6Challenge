@@ -5,6 +5,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import javax.persistence.*;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,8 +27,9 @@ public class AppUser {
     private String password;
 
     //Include the relationship with roles here
-    @ManyToMany(mappedBy = "users",fetch =FetchType.EAGER)
+    @ManyToMany(fetch =FetchType.EAGER)
     private Set<AppRole> roles;
+
 
     public AppUser() {
         //Create an empty set of roles so that it can be added to when a new user is created in memory
@@ -35,6 +37,20 @@ public class AppUser {
 
         //Instantiate the password encoder so it can be used.
         encoder = new BCryptPasswordEncoder();
+    }
+
+    public AppUser(String username, String password, Set<AppRole> roles) {
+        this.encoder = new BCryptPasswordEncoder();
+        this.username = username;
+        setPassword(password);
+        this.roles = roles;
+    }
+
+    public AppUser(String username, String password) {
+        this.encoder = new BCryptPasswordEncoder();
+        this.username = username;
+        setPassword(password);
+
     }
 
     public long getId() {

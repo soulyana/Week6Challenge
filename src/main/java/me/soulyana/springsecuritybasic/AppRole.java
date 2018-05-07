@@ -16,13 +16,24 @@ public class AppRole {
     private String name;
 
     //Each role should have a relationship with a number of users
-    @ManyToMany()
+    @ManyToMany(mappedBy = "roles")
     Set<AppUser> users;
 
     public AppRole() {
         //Instantiate your hashet of users
         this.users = new HashSet<>();
     }
+
+    public AppRole(String role) {
+        this.name = role;
+        this.users = new HashSet<>();
+    }
+
+    public AppRole(String name, Set<AppUser> users) {
+        this.name = name;
+        this.users = new HashSet<>();
+    }
+
 
     public long getId() {
         return id;
@@ -55,6 +66,13 @@ public class AppRole {
         this.users.add(aUser);
     }
 
-
+    @Override
+    public String toString() {
+        return "AppRole{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", users=" + users +
+                '}';
+    }
 }
 

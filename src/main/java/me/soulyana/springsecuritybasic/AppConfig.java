@@ -46,7 +46,8 @@ public class AppConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http.authorizeRequests().antMatchers(everyone).permitAll()
-                .antMatchers(soul).hasAuthority("SOULYANA")
+                .antMatchers(administrators).hasAnyAuthority("ADMIN","SOULYANA")
+//                .antMatchers(soul).hasAuthority("SOULYANA")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

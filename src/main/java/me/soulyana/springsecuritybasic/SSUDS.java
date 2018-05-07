@@ -20,7 +20,7 @@ public class SSUDS implements UserDetailsService {
 
     //Authenticating users from the database
 
-    AppUserRepository userRepo;
+    private AppUserRepository userRepo;
 
     public SSUDS(AppUserRepository userRepo) {
         this.userRepo = userRepo;
